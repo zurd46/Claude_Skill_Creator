@@ -1,0 +1,6 @@
+node_modules/
+dist/
+projekte/
+*.tsbuildinfo
+.DS_Store
+.env

@@ -1,0 +1,41 @@
+{
+  "name": "claude-code-skill-creator",
+  "version": "1.0.0",
+  "description": "Generate perfect Claude Agent Skills, 100% compliant with Anthropic documentation",
+  "type": "module",
+  "bin": {
+    "ccsk": "./dist/index.js"
+  },
+  "scripts": {
+    "dev": "tsx src/index.tsx",
+    "build": "tsc",
+    "start": "node dist/index.js"
+  },
+  "keywords": [
+    "claude",
+    "skills",
+    "anthropic",
+    "cli",
+    "agent"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "commander": "^14.0.3",
+    "dotenv": "^17.3.1",
+    "figlet": "^1.10.0",
+    "fs-extra": "^11.3.3",
+    "gradient-string": "^3.0.0",
+    "ink": "^6.8.0",
+    "picocolors": "^1.1.1",
+    "react": "^19.2.4",
+    "zod": "^4.3.6"
+  },
+  "devDependencies": {
+    "@types/figlet": "^1.7.0",
+    "@types/fs-extra": "^11.0.4",
+    "@types/gradient-string": "^1.1.6",
+    "@types/react": "^19.2.14",
+    "tsx": "^4.21.0",
+    "typescript": "^5.9.3"
+  }
+}

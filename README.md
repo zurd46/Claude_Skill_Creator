@@ -11,14 +11,14 @@ Fully compliant with the [Anthropic Agent Skills specification](https://platform
 [![Node.js](https://img.shields.io/badge/Node.js-%3E%3D18-339933?logo=node.js&logoColor=white)](https://nodejs.org/)
 [![Claude Code](https://img.shields.io/badge/Claude_Code-Compatible-D97706?logo=anthropic&logoColor=white)](https://claude.ai/)
 
-```
-  ___ _   _ _ _    ___              _
- / __| |_(_) | |  / __|_ _ ___ __ _| |_ ___ _ _
- \__ \ / / | | | | (__| '_/ -_) _` |  _/ _ \ '_|
- |___/_\_\_|_|_|  \___|_| \___\__,_|\__\___/_|
-```
-
 </div>
+
+```
+   ___ _   _ _ _    ___              _
+  / __| |_(_) | |  / __|_ _ ___ __ _| |_ ___ _ _
+  \__ \ / / | | | | (__| '_/ -_) _` |  _/ _ \ '_|
+  |___/_\_\_|_|_|  \___|_| \___\__,_|\__\___/_|
+```
 
 ---
 

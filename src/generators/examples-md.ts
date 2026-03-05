@@ -6,96 +6,54 @@ export function generateExamplesMd(skillName: string): string {
     .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
     .join(" ");
 
-  return `# ${title} - Examples
+  return `# ${title} — Examples
 
-## Table of Contents
-
-- [Basic Usage](#basic-usage)
-- [Common Patterns](#common-patterns)
-- [Advanced Usage](#advanced-usage)
-- [Edge Cases](#edge-cases)
+This file provides usage examples for the ${title} skill.
+Claude reads this file when [examples.md](./examples.md) is referenced from SKILL.md.
 
 ## Basic Usage
 
-### Example 1: Simple Case
+<!-- Add 2-3 basic examples specific to ${skillName} -->
+<!-- Each example should show: context, action, expected result -->
+<!--
+### Example: [descriptive name]
 
-**Input**:
-\`\`\`
-[Describe the input scenario]
-\`\`\`
+**Context**: When you need to...
 
-**Expected Output**:
-\`\`\`
-[Describe the expected output]
-\`\`\`
+**Steps**:
+1. ...
+2. ...
 
-**Notes**: Additional context about this example.
-
-### Example 2: Another Common Case
-
-**Input**:
-\`\`\`
-[Describe the input scenario]
-\`\`\`
-
-**Expected Output**:
-\`\`\`
-[Describe the expected output]
-\`\`\`
+**Result**: ...
+-->
 
 ## Common Patterns
 
-### Pattern: [Name]
+<!-- Add patterns that come up frequently for ${skillName} -->
+<!--
+### Pattern: [name]
 
-**When to use**: Describe the scenario where this pattern applies.
+**When**: [specific scenario]
 
-**Example**:
+**Do**:
 \`\`\`
-[Show the pattern in action]
-\`\`\`
-
-### Pattern: [Name]
-
-**When to use**: Describe the scenario.
-
-**Example**:
-\`\`\`
-[Show the pattern in action]
+[actual code or commands]
 \`\`\`
 
-## Advanced Usage
-
-### Complex Scenario
-
-**Context**: Describe the complex scenario.
-
-**Input**:
+**Don't**:
 \`\`\`
-[Complex input]
+[anti-pattern to avoid]
 \`\`\`
-
-**Step-by-step**:
-1. First, handle [aspect 1]
-2. Then, process [aspect 2]
-3. Finally, validate [aspect 3]
-
-**Expected Output**:
-\`\`\`
-[Expected result]
-\`\`\`
+-->
 
 ## Edge Cases
 
-### Edge Case 1: Empty Input
+<!-- Add non-obvious scenarios Claude should handle correctly -->
+<!--
+### [Edge case name]
 
-**Input**: (empty)
-
-**Expected Behavior**: Describe what should happen.
-
-### Edge Case 2: Maximum Size
-
-**Input**: Very large input
-
-**Expected Behavior**: Describe what should happen.
+**Scenario**: ...
+**Correct approach**: ...
+-->
 `;
 }

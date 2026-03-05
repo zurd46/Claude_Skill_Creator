@@ -78,53 +78,135 @@ export function getTemplate(
   return SKILL_TEMPLATES[key] ?? SKILL_TEMPLATES["hybrid-medium"]!;
 }
 
-// Section content generators
+// Section content generators — these are static fallbacks when AI is not available.
+// They provide structural guidance that users should customize for their project.
 export const SECTION_TEMPLATES: Record<string, (name: string) => string> = {
-  overview: (name) =>
-    `## Overview\n\nProvide a high-level overview of what ${name} does and the problems it solves.\n`,
+  overview: (name) => {
+    const readable = formatName(name);
+    return `## Overview
 
-  "key-concepts": (_name) =>
-    `## Key Concepts\n\n- **Concept 1**: Description of the first key concept\n- **Concept 2**: Description of the second key concept\n`,
+${readable} provides Claude with domain-specific knowledge and workflows for this task.
+Invoke this skill when working on ${name}-related changes.
+`;
+  },
 
-  guidelines: (_name) =>
-    `## Guidelines\n\n- Guideline for common scenarios\n- Guideline for edge cases\n- Guideline for error handling\n`,
+  "key-concepts": (name) => `## Key Concepts
 
-  patterns: (_name) =>
-    `## Patterns\n\n### Pattern: [Name]\n\n**When to use**: Describe the scenario\n\n**Approach**:\n1. First step\n2. Second step\n3. Third step\n`,
+<!-- Add the core concepts specific to ${name} that Claude needs to understand -->
+<!-- Example: key abstractions, domain terms, architectural decisions -->
+`,
 
-  "exact-procedures": (_name) =>
-    `## Procedures\n\n### Procedure 1: [Name]\n\n\`\`\`\nStep 1: [Exact action]\nStep 2: [Exact action]\nStep 3: [Exact action]\n\`\`\`\n`,
+  guidelines: (name) => `## Guidelines
 
-  checklists: (_name) =>
-    `## Checklists\n\n### Pre-execution Checklist\n- [ ] Verify prerequisite 1\n- [ ] Verify prerequisite 2\n\n### Post-execution Checklist\n- [ ] Validate output 1\n- [ ] Validate output 2\n`,
+<!-- Add specific, actionable guidelines for ${name} -->
+<!-- Each guideline should be verifiable — "Use X" not "Be careful with Y" -->
+`,
 
-  goal: (name) =>
-    `## Goal\n\nDescribe the primary objective of ${name} and the expected outcome.\n`,
+  patterns: (name) => `## Patterns
 
-  approach: (_name) =>
-    `## Approach\n\nDescribe the general approach. Claude can adapt this based on context:\n\n- Consider the current state of the codebase\n- Evaluate multiple options before choosing\n- Prioritize maintainability and clarity\n`,
+<!-- Add recommended patterns for ${name} with when to use each -->
+<!-- Include actual code snippets or command examples -->
+`,
 
-  considerations: (_name) =>
-    `## Considerations\n\n- **Performance**: Consider impact on performance\n- **Compatibility**: Ensure backward compatibility\n- **Testing**: Include appropriate test coverage\n`,
+  "exact-procedures": (name) => `## Procedures
 
-  workflow: (_name) =>
-    `## Workflow\n\n1. **Analyze** - Understand the current state\n2. **Plan** - Design the approach\n3. **Execute** - Implement the changes\n4. **Validate** - Verify the results\n`,
+<!-- Add step-by-step procedures for ${name} with exact commands -->
+`,
 
-  validation: (_name) =>
-    `## Validation\n\nAfter completing the task, verify:\n\n1. Output matches expected format\n2. No errors or warnings\n3. All edge cases handled\n`,
+  checklists: (_name) => `## Checklists
 
-  "output-format": (_name) =>
-    `## Output Format\n\nThe expected output should follow this structure:\n\n\`\`\`\n[Describe the expected output format]\n\`\`\`\n`,
+### Pre-execution
+- [ ] Read relevant source files to understand current state
+- [ ] Check for existing tests that cover this area
+- [ ] Verify no uncommitted changes that might conflict
 
-  "step-by-step": (_name) =>
-    `## Step-by-Step Instructions\n\n### Step 1: [Name]\n\nExact instructions for step 1.\n\n### Step 2: [Name]\n\nExact instructions for step 2.\n\n### Step 3: [Name]\n\nExact instructions for step 3.\n`,
+### Post-execution
+- [ ] All tests pass
+- [ ] No linting errors introduced
+- [ ] Changes are minimal and focused
+`,
 
-  "validation-checklist": (_name) =>
-    `## Validation Checklist\n\n- [ ] Step 1 completed successfully\n- [ ] Output matches expected format exactly\n- [ ] No side effects introduced\n- [ ] All tests pass\n`,
+  goal: (name) => {
+    const readable = formatName(name);
+    return `## Goal
 
-  "exact-output": (_name) =>
-    `## Exact Output Template\n\n\`\`\`\n[Provide the exact output format that must be followed]\n\`\`\`\n`,
+${readable} ensures consistent, high-quality results for this type of task.
+`;
+  },
 
-  "when-to-use": (name) =>
-    `## When to Use\n\nUse ${name} when:\n\n- Condition 1 applies\n- Condition 2 applies\n\nDo NOT use when:\n\n- Alternative condition 1\n- Alternative condition 2\n`,
+  approach: (_name) => `## Approach
+
+1. Read the relevant source files first to understand current state
+2. Evaluate the options available given the project's conventions
+3. Implement the minimal change needed
+4. Verify the result with tests and linting
+`,
+
+  considerations: (_name) => `## Considerations
+
+- **Scope**: Make the smallest change that solves the problem
+- **Consistency**: Follow existing patterns in the codebase
+- **Testing**: Add or update tests for any behavior changes
+`,
+
+  workflow: (_name) => `## Workflow
+
+1. **Analyze** — Read relevant files, understand the current state
+2. **Plan** — Identify the approach, check for edge cases
+3. **Execute** — Implement changes, keeping diffs minimal
+4. **Validate** — Run tests, check for regressions
+`,
+
+  validation: (_name) => `## Validation
+
+After completing the task:
+
+1. Run the test suite and confirm all tests pass
+2. Run the linter and fix any new warnings
+3. Review the diff — remove any unrelated changes
+`,
+
+  "output-format": (_name) => `## Output Format
+
+<!-- Define the exact output format required for this task -->
+`,
+
+  "step-by-step": (_name) => `## Step-by-Step Instructions
+
+<!-- Add exact step-by-step instructions with specific commands -->
+<!-- Each step should have a clear, verifiable outcome -->
+`,
+
+  "validation-checklist": (_name) => `## Validation Checklist
+
+- [ ] Implementation matches the requirements
+- [ ] All tests pass (run test command)
+- [ ] No linting errors (run lint command)
+- [ ] No unrelated changes in the diff
+`,
+
+  "exact-output": (_name) => `## Exact Output Template
+
+<!-- Define the exact output format that must be followed -->
+`,
+
+  "when-to-use": (name) => {
+    const readable = formatName(name);
+    return `## When to Use
+
+Use ${readable} when:
+
+- Working on ${name}-related tasks in this project
+- Making changes that affect ${name} functionality
+
+Do NOT use when the task is unrelated to ${name}.
+`;
+  },
 };
+
+function formatName(name: string): string {
+  return name
+    .split("-")
+    .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+    .join(" ");
+}

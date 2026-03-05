@@ -11,7 +11,7 @@ import {
 } from "../generators/ai-generator.js";
 import { generateSkillMd } from "../generators/skill-md.js";
 import { isConfigured } from "../utils/openrouter.js";
-import { Spinner, sleep } from "../utils/animations.js";
+import { Spinner } from "../utils/animations.js";
 import { renderHeader, theme, symbols, divider } from "../utils/styles.js";
 import type { SkillConfig } from "../validation/schemas.js";
 
@@ -129,9 +129,13 @@ export async function setupCommand(opts: SetupOptions): Promise<void> {
     const skillSpinner = new Spinner(`Generating skill ${theme.primary(skillName)}...`);
     skillSpinner.start();
     try {
+      const readableName = skillName
+        .split("-")
+        .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+        .join(" ");
       const skillConfig: SkillConfig = {
         name: skillName,
-        description: `${opts.description} - ${skillName} functionality. Use when working on ${skillName} related tasks.`,
+        description: `Handles ${readableName.toLowerCase()} tasks for the ${opts.project} project. Use when working on ${skillName}-related changes or when the user invokes /${skillName}.`,
         type: "hybrid",
         freedomLevel: "medium",
         includeReference: true,
@@ -174,11 +178,10 @@ export async function setupCommand(opts: SetupOptions): Promise<void> {
   }
 
   // 5. Generate .gitignore additions
-  const gitignoreContent = `# Claude Code local files
+  const gitignoreContent = `# Claude Code local files (not shared with team)
 CLAUDE.local.md
 .claude/settings.local.json
 .claude/CLAUDE.local.md
-.claude/agent-memory-local/
 `;
   const gitignorePath = path.join(projectPath, ".gitignore");
   if (await fse.pathExists(gitignorePath)) {

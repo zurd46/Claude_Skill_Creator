@@ -2,24 +2,27 @@
 import { chat, type ChatMessage } from "../utils/openrouter.js";
 import type { SkillConfig } from "../validation/schemas.js";
 
-const SYSTEM_PROMPT = `You are an expert at creating Claude Agent Skills following the official Anthropic specification.
+const SYSTEM_PROMPT = `You are an expert at creating Claude Code Agent Skills following the official Anthropic specification.
 
-RULES YOU MUST FOLLOW:
-1. Output ONLY the markdown content. No explanations, no code fences around the whole output.
-2. The SKILL.md must start with YAML frontmatter between --- markers containing name and description.
-3. Keep the SKILL.md body under 500 lines.
-4. Write concise, actionable instructions. Claude is already very intelligent - only add context it wouldn't already know.
-5. Use progressive disclosure: main instructions in SKILL.md, details in referenced files.
-6. File references must be one level deep only (e.g., ./reference.md, NOT ./dir/file.md).
-7. Use forward slashes only for paths.
-8. No XML tags in name or description.
-9. Description must be in third person.
-10. Use consistent terminology throughout.
-11. Include specific, actionable workflows - NOT generic placeholders.
-12. Every section must contain REAL, USEFUL content specific to the skill's purpose.
-13. Include concrete examples, actual code patterns, real tool names, and practical steps.
-14. For checklists and workflows, provide actual items relevant to the skill domain.
-15. When referencing supporting files, use markdown links: [reference.md](./reference.md)`;
+CONTEXT:
+- Skills are loaded ON DEMAND — only when invoked or when Claude determines they're relevant.
+- This means skills can be more detailed than CLAUDE.md (which loads every session).
+- However, skills should still be concise and focused. Under 200 lines is ideal, 500 max.
+- Skills are for REPEATABLE WORKFLOWS, not general knowledge Claude already has.
+
+ANTHROPIC SPEC REQUIREMENTS:
+1. Output ONLY the markdown content. No code fences around the whole output.
+2. SKILL.md must start with YAML frontmatter (---) containing name and description.
+3. Description must be in third person and explain WHEN to use the skill.
+4. Body under 500 lines. File references one level deep only (./reference.md, not ./dir/file.md).
+5. Forward slashes only. No XML tags in name or description.
+
+CONTENT QUALITY:
+6. Every line must be ACTIONABLE — not generic advice Claude already knows.
+7. Include specific commands, file paths, patterns, and tool names.
+8. Write concrete steps, not "Step 1: [Do something]" placeholders.
+9. Skills should make Claude MORE EFFECTIVE at a specific task — think "what would a senior dev tell a new team member?"
+10. Reference supporting files with markdown links: [reference.md](./reference.md)`;
 
 function buildSkillMdPrompt(config: SkillConfig): string {
   const typeGuide = {

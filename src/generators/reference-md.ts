@@ -6,62 +6,40 @@ export function generateReferenceMd(skillName: string): string {
     .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
     .join(" ");
 
-  return `# ${title} - Reference
+  return `# ${title} — Reference
 
-## Table of Contents
-
-- [Configuration](#configuration)
-- [API Reference](#api-reference)
-- [Parameters](#parameters)
-- [Error Codes](#error-codes)
+This file provides detailed reference material for the ${title} skill.
+Claude reads this file when [reference.md](./reference.md) is referenced from SKILL.md.
 
 ## Configuration
 
+<!-- Add configuration options specific to ${skillName} -->
+<!-- Use tables for structured data: -->
+<!--
 | Parameter | Type | Default | Description |
 |-----------|------|---------|-------------|
-| \`param1\` | string | \`""\` | Description of parameter 1 |
-| \`param2\` | number | \`0\` | Description of parameter 2 |
-| \`param3\` | boolean | \`false\` | Description of parameter 3 |
+-->
 
-## API Reference
+## Key Files
 
-### Function/Endpoint 1
+<!-- List the important files Claude should know about for this skill -->
+<!-- Example: -->
+<!-- - \`src/auth/middleware.ts\` — Authentication middleware -->
+<!-- - \`src/config/auth.ts\` — Auth configuration -->
 
-**Description**: What this function does.
+## Common Commands
 
-**Parameters**:
-- \`input\` (required): Description of the input
-- \`options\` (optional): Additional options
+<!-- Add commands relevant to this skill -->
+<!-- Example: -->
+<!-- \`\`\`bash -->
+<!-- npm run test:auth   # Run auth-related tests -->
+<!-- \`\`\` -->
 
-**Returns**: Description of the return value
+## Troubleshooting
 
-**Example**:
-\`\`\`
-// Example usage
-\`\`\`
-
-### Function/Endpoint 2
-
-**Description**: What this function does.
-
-## Parameters
-
-### Required Parameters
-
-- **\`name\`**: The name used for identification
-- **\`type\`**: The type of operation to perform
-
-### Optional Parameters
-
-- **\`verbose\`**: Enable detailed output (default: false)
-- **\`format\`**: Output format - "json" | "text" (default: "text")
-
-## Error Codes
-
-| Code | Message | Resolution |
-|------|---------|------------|
-| E001 | Invalid input | Check input format matches expected schema |
-| E002 | Not found | Verify the resource exists before accessing |
-| E003 | Permission denied | Check access permissions |
+<!-- Add common issues and their resolutions -->
+<!-- Example: -->
+<!-- | Issue | Cause | Fix | -->
+<!-- |-------|-------|-----| -->
 `;
 }

@@ -185,6 +185,20 @@ projekte/
 
 ---
 
+## Design Philosophy: No Over-Engineering
+
+ccsk follows [Anthropic's own research](https://code.claude.com/docs/en/best-practices) on effective Claude Code configuration:
+
+- **CLAUDE.md targets 50–100 lines** — for every line, the generator asks *"Would removing this cause Claude to make mistakes?"* If not, it gets cut. [Bloated files cause Claude to ignore instructions.](https://www.humanlayer.dev/blog/writing-a-good-claude-md)
+- **Rules only where needed** — only rules matching your actual tech stack are generated. A React project gets `components.md`, but no `database.md` unless you use a DB.
+- **Skills on demand** — skills are only created when explicitly requested via `--skills`. No skill spam.
+- **Settings stay minimal** — only real permission rules and hooks that match your stack. No boilerplate.
+
+> LLMs can reliably follow ~150–200 instructions. Claude Code's system prompt already uses ~50.
+> Every unnecessary line in CLAUDE.md competes with the ones that matter. — [Anthropic Best Practices](https://code.claude.com/docs/en/best-practices)
+
+---
+
 ## Smart Rule Detection
 
 Rules are automatically generated based on your tech stack — no manual configuration needed:
